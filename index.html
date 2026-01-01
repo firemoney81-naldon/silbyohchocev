@@ -1,23 +1,482 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+    <!-- JSON-LD Structured Data for FAQ Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "어린이 실손보험과 태아보험의 차이는 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "태아보험은 출생 시 발생할 수 있는 선천성 질환이나 저체중아 출산 등에 대비하는 보험으로, 실손보험은 아기가 태어난 후 실제 발생하는 의료비를 보장하는 보험입니다. 태아보험 특약으로 실손보험을 가입하는 경우가 많습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "4세대 실손보험의 가장 큰 특징은 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "4세대 실손보험은 비급여 항목에 대한 자기부담금이 상향되었으며, 비급여 보험료 차등제(할인/할증 제도)가 적용되어 의료 이용량에 따라 보험료가 달라집니다. 이는 보험료 안정화를 위한 조치입니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "어린이 실손보험 가입 시 가장 중요한 고려 사항은 무엇인가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "가입 시기는 물론, 보장 범위, 자기부담금 비율, 그리고 비급여 항목에 대한 보장 여부와 보험료 갱신 주기 등을 종합적으로 고려해야 합니다. 특히 아이의 연령대별로 필요한 보장이 달라지므로 전문가의 조언을 받는 것이 좋습니다."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        /* CSS Variables: Soft, Child-friendly Colors */
+        :root {
+            --primary-color: #3B82F6; /* Soft Blue */
+            --secondary-color: #10B981; /* Soft Green */
+            --accent-color: #FBBF24; /* Soft Yellow/Orange */
+            --text-color: #1F2937; /* Dark Grey */
+            --bg-light: #F9FAFB; /* Light Background */
+            --bg-dark: #1F2937; /* Dark Background (for hero) */
+            --btn-cta: #EF4444; /* Red Call to Action */
+            --border-color: #E5E7EB; /* Light border */
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+        
+        body { font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0; background-color: var(--bg-light); color: var(--text-color); line-height: 1.7; font-size: 16px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        
+        /* 헤더: 로고와 상위 메뉴 */
+        header { background-color: #fff; padding: 20px; text-align: center; border-bottom: 1px solid var(--border-color); }
+        header h1 { margin: 0; font-size: 2.5em; color: var(--primary-color); font-weight: 900; }
+        header h1 a { text-decoration: none; color: inherit; }
+
+        /* 히어로 섹션: 핵심 정보와 CTA */
+        .hero { background: linear-gradient(135deg, var(--primary-color) 0%, #60A5FA 100%); color: #fff; text-align: center; padding: 80px 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .hero h1 { font-size: 3.5em; margin-bottom: 20px; font-weight: 900; line-height: 1.2; }
+        .hero p { font-size: 1.4em; margin-bottom: 40px; font-weight: 300; }
+        
+        /* CTA 버튼: 강렬한 시각적 피드백 */
+        .cta-btn { background-color: var(--btn-cta); color: #fff; padding: 18px 40px; font-size: 1.4em; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: background-color 0.3s, transform 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); text-decoration: none; display: inline-block; }
+        .cta-btn:hover { background-color: #DC2626; transform: translateY(-3px); }
+
+        /* 비교견적 폼: 시각적으로 돋보이게 */
+        .compare-form-box { background-color: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); margin: 40px auto; max-width: 600px; text-align: left; }
+        .compare-form-box h2 { color: var(--primary-color); text-align: center; margin-bottom: 30px; font-weight: 700; font-size: 2em; }
+        .form-row { display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 15px; }
+        .form-row > div { width: calc(50% - 10px); }
+        .form-row > div:only-child { width: 100%; }
+        .compare-form-box label { display: block; margin-bottom: 8px; font-weight: 500; font-size: 1.1em; color: var(--text-color); }
+        .compare-form-box input, .compare-form-box select { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid var(--border-color); border-radius: 6px; box-sizing: border-box; font-size: 1em; }
+        .compare-form-box input:focus, .compare-form-box select:focus { border-color: var(--primary-color); outline: none; box-shadow: 0 0 5px rgba(59, 130, 246, 0.3); }
+
+        /* 컨텐츠 섹션: 논리적이고 깔끔한 구분 */
+        .content-section { background-color: #fff; padding: 70px 0; border-radius: 10px; box-shadow: 0 2px 15px rgba(0,0,0,0.05); margin-top: 30px; }
+        .content-section h2 { font-size: 2.8em; color: var(--primary-color); border-bottom: 3px solid var(--bg-light); padding-bottom: 15px; margin-bottom: 40px; text-align: center; font-weight: 900; }
+        .content-section h3 { font-size: 1.8em; color: var(--secondary-color); margin-top: 40px; margin-bottom: 20px; font-weight: 700; line-height: 1.4; }
+        .content-section h4 { font-size: 1.4em; color: var(--primary-color); margin-top: 25px; margin-bottom: 15px; font-weight: 500; }
+
+        .feature-grid { display: flex; flex-wrap: wrap; justify-content: space-around; text-align: center; margin-top: 30px; }
+        .feature-grid .item { width: calc(33.33% - 40px); margin: 20px 10px; padding: 30px; background-color: var(--bg-light); border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: transform 0.3s; }
+        .feature-grid .item:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0,0,0,0.1); }
+        .feature-grid .item img { width: 80px; height: 80px; margin-bottom: 20px; }
+        .feature-grid .item h3 { font-size: 1.3em; margin-top: 0; color: var(--text-color); }
+        .feature-grid .item p { font-size: 0.95em; line-height: 1.6; color: #555; }
+        
+        /* FAQ 섹션 */
+        .faq-item { border-bottom: 1px solid var(--border-color); padding: 20px 0; }
+        .faq-item h3 { cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 1.2em; color: var(--text-color); transition: color 0.3s; }
+        .faq-item h3:hover { color: var(--primary-color); }
+        .faq-item h3::after { content: '+'; font-size: 1.5em; color: var(--secondary-color); transition: transform 0.3s; font-weight: normal; }
+        .faq-item.active h3::after { content: '-'; transform: rotate(180deg); }
+        .faq-item p { display: none; padding-top: 15px; color: #555; line-height: 1.6; }
+        .faq-item.active p { display: block; }
+        
+        /* '함께 많이 찾는' 키워드 리스트 */
+        .keyword-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
+        .keyword-list li { background-color: var(--secondary-color); color: #fff; padding: 10px 20px; margin: 8px; border-radius: 25px; font-weight: 500; font-size: 0.9em; transition: background-color 0.3s; }
+        .keyword-list li:hover { background-color: #059669; }
+
+        /* 테이블 및 그래프 스타일 */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background-color: #fff; font-size: 0.95em; line-height: 1.6; }
+        th, td { border: 1px solid var(--border-color); padding: 15px; text-align: left; vertical-align: middle; }
+        th { background-color: var(--bg-light); color: var(--primary-color); font-weight: bold; }
+        td strong { font-weight: 700; color: var(--text-color); }
+        .highlight-row { background-color: #EFF6FF; }
+        
+        .graph-container { margin: 40px 0; text-align: center; }
+        .bar-chart { display: flex; align-items: flex-end; justify-content: space-around; height: 250px; background-color: #F7F7F7; border-radius: 8px; padding: 20px; }
+        .bar { width: 15%; background-color: var(--primary-color); margin: 0 5px; border-radius: 5px 5px 0 0; position: relative; display: flex; align-items: center; justify-content: center; transition: height 0.5s ease; }
+        .bar-label { position: absolute; top: -25px; color: var(--primary-color); font-weight: 700; font-size: 0.9em; }
+        .bar-category { position: absolute; bottom: -25px; font-size: 0.9em; color: var(--text-color); }
+
+        /* 푸터: 사이트 정보 및 링크 */
+        footer { background-color: var(--bg-dark); color: #fff; text-align: center; padding: 40px 20px; font-size: 0.9em; margin-top: 30px; }
+        footer a { color: #fff; text-decoration: none; margin: 0 10px; opacity: 0.8; }
+        footer a:hover { text-decoration: underline; opacity: 1; }
+
+        /* 모바일 친화적 반응형 디자인 (구독성 향상) */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5em; }
+            .hero p { font-size: 1.2em; }
+            .cta-btn { padding: 15px 30px; font-size: 1.2em; }
+            .compare-form-box { padding: 25px; max-width: 100%; }
+            .form-row > div { width: 100%; }
+            .content-section h2 { font-size: 2em; }
+            .content-section h3 { font-size: 1.5em; }
+            .feature-grid .item { width: calc(50% - 20px); }
+            .keyword-list { justify-content: flex-start; }
+            .keyword-list li { margin: 3px; font-size: 0.8em; }
+        }
+        @media (max-width: 480px) {
+            .feature-grid .item { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><a href="/">우리 아이 실손보험 비교센터</a></h1>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <section class="hero">
+            <div class="container">
+                <h1>어린이 실손보험 완벽 가이드: 2026년 최신 정보로 꼼꼼하게 비교하세요!</h1>
+                <p>복잡한 어린이 실손보험, 이제 전문가의 도움 없이도 쉽고 빠르게 비교 견적을 받아볼 수 있습니다.</p>
+                <div class="compare-form-box">
+                    <h2>우리 아이 보험료 최저가 비교견적 서비스</h2>
+                    <p>간단한 정보 입력으로 **어린이 실손보험** 상품을 찾아드립니다. 여러 보험사의 견적을 한 번에 비교하여 불필요한 지출을 줄여보세요.</p>
+                    <form action="#" method="post">
+                        <div class="form-row">
+                            <div>
+                                <label for="childName">아이 이름</label>
+                                <input type="text" id="childName" placeholder="아이 이름을 입력하세요" required>
+                            </div>
+                            <div>
+                                <label for="childBirth">아이 생년월일</label>
+                                <input type="date" id="childBirth" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div>
+                                <label for="parentName">부모님 성함</label>
+                                <input type="text" id="parentName" placeholder="부모님 성함을 입력하세요" required>
+                            </div>
+                            <div>
+                                <label for="parentPhone">연락처</label>
+                                <input type="tel" id="parentPhone" placeholder="휴대폰 번호를 입력하세요" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div>
+                                <label for="coverageAmount">희망 보장 금액 (대략)</label>
+                                <select id="coverageAmount">
+                                    <option value="5000">5,000만원 이하</option>
+                                    <option value="10000">5,000만원 ~ 1억원</option>
+                                    <option value="10000+">1억원 이상</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="childHealthStatus">아이 건강 상태</label>
+                                <select id="childHealthStatus">
+                                    <option value="normal">건강함 (최근 3개월 병력 없음)</option>
+                                    <option value="minor">경미한 병력 있음</option>
+                                    <option value="major">중대한 질병/치료 이력 있음</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="cta-btn">실시간 최저가 견적 받기</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2>실손보험 어린이, 왜 꼭 필요할까요?</h2>
+                <p>
+                    어린이는 성인에 비해 면역력이 약하고, 예기치 않은 부상이나 질병에 노출될 위험이 높습니다. 감기나 장염과 같은 잦은 질병부터, 골절이나 입원을 필요로 하는 큰 사고까지, 병원 방문 횟수가 잦은 것이 특징입니다. **어린이 실손보험**은 이러한 상황에서 발생하는 실제 의료비를 보장해주어 부모님의 경제적 부담을 크게 덜어줍니다.
+                </p>
+                <p>
+                    특히 2026년 현재, 물가 상승률을 반영한 비급여 진료비는 계속해서 증가하는 추세입니다. 실손보험은 국민건강보험이 보장하지 않는 비급여 항목까지 일정 부분 보장하여, 고가의 치료비 걱정 없이 아이의 건강을 지킬 수 있도록 돕습니다. 전문가들은 아이가 어릴수록 가입이 용이하고, 보험료가 저렴한 시기에 **실비보험 어린이** 상품에 가입하는 것을 적극 권장합니다.
+                </p>
+                <p>
+                    어린이 실손보험 가입을 미루다가 아이의 병력이 생기면 가입이 어려워지거나 보장 범위가 제한될 수 있습니다. 따라서 아이가 건강할 때 미리 준비하는 것이 현명합니다.
+                </p>
+
+                <h3>어린이 실손보험, 이런 점을 놓치지 마세요</h3>
+                <div class="feature-grid">
+                    <div class="item">
+                        <img src="https://via.placeholder.com/80/3B82F6/fff?text=ICON1" alt="보장 범위 아이콘">
+                        <h3>넓은 보장 범위</h3>
+                        <p>입원, 통원은 물론, 국민건강보험이 보장하지 않는 비급여 진료비까지 보장합니다. 다양한 질병과 상해를 대비할 수 있습니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://via.placeholder.com/80/3B82F6/fff?text=ICON2" alt="보험료 할인 아이콘">
+                        <h3>보험료 절약 효과</h3>
+                        <p>잦은 병원 방문으로 발생하는 소액 의료비 부담을 줄여줍니다. 장기적으로 보았을 때 경제적인 이득이 큽니다.</p>
+                    </div>
+                    <div class="item">
+                        <img src="https://via.placeholder.com/80/3B82F6/fff?text=ICON3" alt="종합 보장 아이콘">
+                        <h3>종합 보험의 핵심</h3>
+                        <p>어린이 보험의 기본이 되는 실손 특약을 통해, 암, 뇌졸중 등 중대 질병 진단비와 함께 든든한 의료비 지원을 받을 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" style="background-color: #fcfcfc;">
+            <div class="container">
+                <h2>태아보험과 어린이 실손보험: 가입 시기별 전략</h2>
+                <p>
+                    많은 부모님이 헷갈리는 부분이 바로 태아보험과 어린이 실손보험의 관계입니다. 결론부터 말씀드리자면, 태아보험은 출생 직후 발생할 수 있는 위험을 보장하는 특약이며, 이 태아보험 안에 **어린이 실손보험**이 포함되는 것이 일반적입니다. 태아보험은 임신 22주 이전에 가입해야 선천성 질환, 저체중아 출산 등에 대한 보장을 받을 수 있습니다.
+                </p>
+
+                <h3>태아보험 가입 시, 실손보험을 함께 준비해야 하는 이유</h3>
+                <p>
+                    아이의 실손보험은 보통 태아보험 가입 시 함께 가입하여 출생 후 자동 전환됩니다. 이 때, 태아보험의 '어린이 실손 특약'을 통해 아이가 태어난 직후부터 100세까지 보장받을 수 있는 상품을 설계하는 것이 가장 일반적입니다. 만약 태아보험 시기를 놓쳤더라도, 아이가 태어난 후 30일 이내에 보험에 가입하는 것이 유리합니다. 출산 직후 아이의 건강 상태가 확인되기 전에 가입해야 혹시 모를 선천적 질병이나 출산 합병증에 대한 보장을 받을 수 있기 때문입니다.
+                </p>
+                <p>
+                    아이의 성장 과정에서 고열, 감기, 장염 등으로 병원을 자주 방문하게 됩니다. 이 때마다 실손보험이 없다면 모든 비용을 부모가 부담해야 합니다. 특히 최근 늘어나는 아토피, 알레르기 등 환경성 질환에 대한 비급여 치료도 **실손보험 어린이**의 보장 범위에 포함되는 경우가 많아 경제적 부담을 덜 수 있습니다.
+                </p>
+
+                <h4>태아보험 가입 시기별 핵심 보장 내용</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>가입 시기</th>
+                            <th>핵심 보장</th>
+                            <th>가입 유의사항</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>임신 22주 이전 (태아보험)</strong></td>
+                            <td>선천성 질환 수술비, 저체중아 인큐베이터 비용, 출산 관련 위험 담보</td>
+                            <td>가장 폭넓은 보장을 받을 수 있는 시기. 반드시 실손 특약을 포함해야 함.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>출생 직후 (어린이 실손)</strong></td>
+                            <td>출생 후 발생하는 각종 질병 및 상해 의료비, 입원/통원 치료비</td>
+                            <td>출생 후 병력 발생 시 가입이 거절될 수 있으므로 조속히 가입 필요.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>성장기 (5~10세)</strong></td>
+                            <td>잦은 상해(골절, 화상) 및 감염병, 성장기 질환 치료비</td>
+                            <td>이 시기에는 이미 병력이 생긴 아이들이 많으므로 보험사별 심사 기준 확인.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="source-info" style="font-size: 0.85em; color: #777; margin-top: 10px;">* 해당 내용은 일반적인 어린이 실손보험의 특징이며, 세부 보장 내용은 보험사별 상품에 따라 다를 수 있습니다.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2>2026년 최신 정보: 4세대 실손보험, 무엇이 달라졌나?</h2>
+                <p>
+                    2026년 현재 가입 가능한 **어린이 실손보험**은 4세대 실손보험입니다. 기존 세대 실손보험 대비 가장 큰 변화는 '비급여 보험료 차등제' 도입입니다. 이는 실손보험을 가입한 모든 사람이 동일한 보험료를 내는 것이 아니라, 비급여 진료를 많이 받은 사람의 보험료가 할증되고, 진료를 받지 않은 사람의 보험료는 할인되는 방식입니다.
+                </p>
+
+                <h3>4세대 실손보험의 핵심 변경 사항</h3>
+                <h4 id="비급여_차등제">1. 비급여 보험료 차등제 (할인/할증 제도)</h4>
+                <p>
+                    4세대 실손보험은 비급여 항목에 대한 자기부담금이 상향되었습니다. 급여 항목은 20%, 비급여 항목은 30%의 자기부담금을 지불해야 합니다. 또한, 비급여 진료를 받은 횟수와 금액에 따라 다음 해 보험료가 할증되는 '비급여 보험료 차등제'가 적용됩니다. 이는 실손보험의 지속 가능성을 높이기 위한 조치로, 비급여 항목에 대해 과잉 진료를 받는 것을 억제하려는 목적입니다.
+                </p>
+                <p>
+                    아이의 경우 성장기 동안 병원 방문이 잦을 수 있어 비급여 항목 이용에 대한 신중한 판단이 필요합니다. 하지만 4세대 실손보험은 기존 실손보험 대비 초기 보험료가 저렴하다는 장점이 있습니다. 만약 아이가 건강하여 병원 방문이 적다면 **어린이 실손보험** 4세대가 오히려 유리할 수 있습니다.
+                </p>
+
+                <h4 id="재가입_주기">2. 재가입 주기 단축과 보장 변경</h4>
+                <p>
+                    4세대 실손보험은 재가입 주기가 5년으로 단축되었습니다. 이는 5년마다 보장 내용이나 보험료가 변경될 수 있음을 의미합니다. 기존 실손보험의 경우 재가입 주기가 15년이었던 것과 비교하면 변경 주기가 짧아졌습니다. 이는 빠르게 변화하는 의료 환경에 맞춰 상품을 개정하려는 목적이 있습니다.
+                </p>
+                <p>
+                    또한, 기존 3세대까지는 보장하던 도수치료, 체외충격파치료, 증식치료 등을 특약으로 분리하고 자기부담금을 상향 조정했습니다. 이는 고가 비급여 항목에 대한 보장 기준을 강화한 것입니다. 자세한 내용은 <a href="https://www.fss.or.kr/" target="_blank">금융감독원 금융소비자정보 포털 파인</a>을 통해 확인할 수 있습니다.
+                </p>
+
+                <h4 id="보험료_절감_전략">3. 4세대 실손보험을 현명하게 가입하는 방법</h4>
+                <p>
+                    4세대 실손보험의 단점만 있는 것은 아닙니다. 기존 실손보험 가입자 중 의료 이용량이 적은 사람에게는 보험료 할인 혜택을 제공합니다. 특히 **어린이 실손보험**의 경우 아이가 건강할 때 가입하면 초기 보험료가 저렴하고, 비급여 이용이 적다면 향후 보험료 할증 걱정을 줄일 수 있습니다. 아이가 성장하면서 병원 방문 횟수가 줄어들 경우, 나이가 들면서 보험료 할인을 받을 수 있는 가능성이 커집니다.
+                </p>
+                <p>
+                    따라서 4세대 **어린이 실손보험**을 선택할 때는 비급여 항목의 활용도를 고려하여 보험료 비교를 신중하게 진행해야 합니다. 여러 보험사의 견적을 비교하는 것이 필수적입니다.
+                </p>
+            </div>
+        </section>
+
+        <section class="content-section" style="background-color: #fcfcfc;">
+            <div class="container">
+                <h2>실손보험료 절약 팁: 현명하게 가입하는 노하우</h2>
+                <p>
+                    우리 아이를 위한 **실비보험 어린이** 상품을 선택할 때, 단순히 저렴한 가격만을 쫓기보다는 보장과 보험료의 균형을 찾는 것이 중요합니다. 다음은 보험료를 절약하면서도 충분한 보장을 받는 노하우입니다.
+                </p>
+
+                <h3>1. 불필요한 특약은 과감하게 제외하기</h3>
+                <p>
+                    어린이 보험에는 실손 특약 외에도 다양한 진단비, 입원일당, 수술비 특약이 존재합니다. 실손보험은 실제 발생한 의료비를 보장하는 것이므로, 과도한 진단비 특약은 보험료를 높이는 주범이 될 수 있습니다. **어린이 실손보험** 가입 시에는 꼭 필요한 핵심 특약 위주로 구성하고, 불필요한 특약은 제외하여 보험료 부담을 줄이는 것이 좋습니다.
+                </p>
+                <p>
+                    특히 갱신형 특약과 비갱신형 특약을 잘 구분해야 합니다. 갱신형은 초기 보험료가 저렴하지만, 나이가 들수록 보험료가 올라갑니다. 비갱신형은 초기 보험료가 비싸지만, 만기 시점까지 보험료 변동이 없어 장기적으로 볼 때 유리할 수 있습니다. <a href="https://namu.wiki/w/%EC%8B%A4%EC%86%90%EB%B3%B4%ED%97%98" target="_blank">나무위키 실손보험</a> 항목에서 갱신형/비갱신형의 장단점을 더 자세히 알아볼 수 있습니다.
+                </p>
+
+                <h3>2. 보험사별 견적 비교는 필수</h3>
+                <p>
+                    동일한 보장 조건이라도 보험사별로 **실손보험료**는 수십만 원 이상 차이가 날 수 있습니다. 각 보험사의 손해율, 사업비, 자체적인 위험률 산출 방식이 다르기 때문입니다. **어린이 실손보험**의 경우도 마찬가지입니다. 특히 4세대 실손보험 도입 이후 보험사별 상품 구성이 다양해져 더욱 꼼꼼한 비교가 필요합니다.
+                </p>
+                <p>
+                    저희 비교 사이트를 이용하면 여러 보험사의 견적을 한 번에 비교할 수 있어 시간을 절약하고 최저가 상품을 쉽게 찾을 수 있습니다. 또한, 전문 상담사를 통해 아이의 연령대별 최적화된 상품 설계를 받아보는 것도 좋은 방법입니다.
+                </p>
+
+                <h3>3. 가입 시기를 놓치지 마세요</h3>
+                <p>
+                    앞서 강조했듯이, 아이의 **실손보험**은 건강할 때 가입하는 것이 가장 중요합니다. 태아보험 시기를 놓쳤더라도, 아이가 태어난 직후부터 늦어도 만 1세가 되기 전에 가입하는 것을 추천합니다. 아이가 성장하면서 감기, 장염 등으로 병원을 자주 방문하게 되면 보험 가입 시 심사가 까다로워질 수 있습니다. 특히 4세대 실손보험은 재가입 주기가 짧아지면서 건강할 때 가입하는 것이 더욱 중요해졌습니다.
+                </p>
+
+                <div class="graph-container">
+                    <h3>성장기 아이 연령별 주요 질병 및 상해 발생 빈도 (가상의 데이터)</h3>
+                    <div class="bar-chart">
+                        <div class="bar" style="height: 80%; background-color: var(--primary-color);">
+                            <span class="bar-label">80%</span>
+                            <span class="bar-category">0~3세</span>
+                        </div>
+                        <div class="bar" style="height: 65%; background-color: var(--primary-color);">
+                            <span class="bar-label">65%</span>
+                            <span class="bar-category">4~7세</span>
+                        </div>
+                        <div class="bar" style="height: 45%; background-color: var(--primary-color);">
+                            <span class="bar-label">45%</span>
+                            <span class="bar-category">8~10세</span>
+                        </div>
+                        <div class="bar" style="height: 30%; background-color: var(--primary-color);">
+                            <span class="bar-label">30%</span>
+                            <span class="bar-category">11~15세</span>
+                        </div>
+                    </div>
+                    <p style="text-align: center; font-size: 0.85em; color: #777; margin-top: 10px;">* 해당 그래프는 성장기 아이들의 평균적인 병원 방문 빈도를 가상으로 나타낸 것입니다. 연령대가 어릴수록 상해 및 질병 발생률이 높습니다.</p>
+                </div>
+                <p>
+                    아이의 병원 방문 횟수가 많은 시기일수록 **어린이 실손보험**의 효용성은 더욱 높아집니다. 따라서 가입 시기를 늦추지 않고 아이가 건강할 때 준비하는 것이 중요합니다.
+                </p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2>실손보험 가입 시 체크리스트: 보장 내용 완벽 분석</h2>
+                <p>
+                    **어린이 실손보험** 가입 시에는 반드시 체크해야 할 사항들이 있습니다. 무작정 저렴한 상품만 선택했다가 나중에 필요한 보장을 받지 못하는 경우가 발생할 수 있으므로, 아래 항목들을 꼼꼼하게 확인하세요.
+                </p>
+
+                <h3>1. 보장 기간: 100세 만기를 선택해야 할까?</h3>
+                <p>
+                    과거에는 30세 만기 상품이 많았으나, 최근에는 100세 만기 상품을 선호하는 추세입니다. 아이가 30세 이후 성인이 되었을 때 실손보험을 재가입하려면 그때의 건강 상태에 따라 가입이 거절될 수도 있습니다. 따라서 **어린이 실손보험** 가입 시 100세 만기 상품을 선택하여 노후까지 보장을 유지하는 것이 안전합니다.
+                </p>
+
+                <h3>2. 비급여 항목의 보장 범위 확인</h3>
+                <p>
+                    4세대 실손보험은 비급여 항목에 대한 자기부담금이 상향되었습니다. 특히 도수치료, 비급여 주사료, MRI, CT 등 고가 비급여 항목은 보장 한도와 횟수가 정해져 있습니다. **실비보험 어린이** 상품을 비교할 때, 아이의 성장 과정에서 발생할 수 있는 주요 비급여 항목에 대한 보장 조건을 꼼꼼히 확인해야 합니다.
+                </p>
+
+                <h3>3. 가입 거절 이력과 고지 의무</h3>
+                <p>
+                    보험 가입 시에는 최근 3개월 이내 병원 치료 이력, 1년 이내 재검사 이력, 5년 이내 입원/수술 이력 등 고지 의무 사항을 정확하게 알려야 합니다. 아이가 자주 아픈 편이라면 보험 가입이 거절되거나 특정 질병에 대한 보장이 제외될 수 있습니다. 만약 가입이 어렵다면, 유병력자 실손보험 등 차선책을 고려해볼 수 있습니다. 관련 정책은 <a href="https://www.ins.or.kr/" target="_blank">생명보험협회</a> 및 <a href="https://www.knia.or.kr/" target="_blank">손해보험협회</a>에서 상세히 확인할 수 있습니다.
+                </p>
+
+                <h3>함께 많이 찾는 키워드</h3>
+                <ul class="keyword-list">
+                    <li>#어린이실손보험비교사이트</li>
+                    <li>#실손보험비갱신형</li>
+                    <li>#태아보험실손보험</li>
+                    <li>#4세대실손보험장단점</li>
+                    <li>#어린이보험추천상품</li>
+                    <li>#실손보험가입시기</li>
+                    <li>#실비보험자기부담금</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="content-section">
+            <div class="container">
+                <h2>자주 묻는 질문 (FAQ)</h2>
+                <div class="faq-item">
+                    <h3 id="q1">Q. 어린이 실손보험, 무해지 환급형 상품이 좋은가요?</h3>
+                    <p>
+                        무해지 환급형 상품은 보험료 납입 기간 중 해지 시 환급금이 없는 대신, 일반 상품 대비 보험료가 저렴한 장점이 있습니다. 장기간 유지할 계획이라면 보험료를 절약할 수 있는 좋은 선택지가 될 수 있습니다. 하지만 중도 해지 가능성이 있다면 신중하게 선택해야 합니다. 무해지 환급형은 환급금이 없어 중도 해지 시 손해를 볼 수 있기 때문입니다.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="q2">Q. 4세대 실손보험으로 전환하는 것이 유리한가요?</h3>
+                    <p>
+                        4세대 실손보험은 초기 보험료가 저렴하지만, 비급여 이용량에 따라 보험료가 할증될 수 있습니다. 아이가 병원 방문이 매우 잦은 편이라면 기존 실손보험을 유지하는 것이 유리할 수 있습니다. 반면, 병원 방문이 적고 건강한 아이라면 보험료 절감 효과를 볼 수 있습니다. 현재 가입된 실손보험의 보장 내용과 아이의 건강 상태를 종합적으로 고려하여 신중하게 판단해야 합니다.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="q3">Q. 비갱신형 실손보험이 따로 있나요?</h3>
+                    <p>
+                        실손보험 자체는 갱신형 상품입니다. 다만, 실손보험의 특약을 비갱신형으로 선택할 수 있습니다. 즉, 실손보험의 보장은 갱신되지만, 실손보험 외에 암 진단비 등 기타 특약은 보험료가 변동되지 않도록 설계할 수 있습니다. **어린이 실손보험**의 경우 100세 만기 비갱신형 특약을 통해 장기적인 보험료 부담을 줄이는 것이 핵심입니다.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3 id="q4">Q. 실손보험 가입 후 다른 보험 가입 시 불이익이 있나요?</h3>
+                    <p>
+                        아이가 실손보험에 가입되어 있더라도, 보장이 겹치지 않는 범위 내에서 다른 종합보험이나 진단비 보험에 추가 가입할 수 있습니다. 실손보험은 실제 의료비를 보장하고, 진단비 보험은 질병 진단 시 정액을 지급하므로 역할이 다릅니다. 다만, 고지의무를 충실히 이행해야 하며, 보험사별 중복 가입 제한 여부를 확인해야 합니다.
+                    </p>
+                </div>
+            </div>
+        </section>
     </main>
-  </body>
-</html>
+    
+    <footer>
+        <div class="container">
+            <p><strong>우리 아이 실손보험 비교센터</strong> &copy; 2026 All Rights Reserved.</p>
+            <p>
+                <a href="#">개인정보처리방침</a> |
+                <a href="#">이용약관</a> |
+                <a href="#">사업자 정보</a> |
+                <a href="#">문의하기</a>
+            </p>
+            <p>본 사이트는 보험료 비교정보를 제공하며, 실제 계약은 해당 보험사 홈페이지에서 진행됩니다.</p>
+            <p style="margin-top: 10px; font-size: 0.8em;">준법감시인 심의필 2026-01-01 (유효기간 2027.01.01)</p>
+        </div>
+    </footer>
+    
+    <script>
+        // FAQ 토글 기능 (사용자 경험 개선)
+        document.querySelectorAll('.faq-item h3').forEach(item => {
+            item.addEventListener('click', event => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
+            });
+        });
+
+        // 그래프 애니메이션 효과 (스크롤 시)
+        document.addEventListener('DOMContentLoaded', function() {
+            const barChart = document.querySelector('.bar-chart');
+            const bars = document.querySelectorAll('.bar');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        bars.forEach(bar => {
+                            const height = bar.style.height;
+                            bar.style.height = '0';
+                            setTimeout(() => {
+                                bar.style.height = height;
+                            }, 100);
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(barChart);
+        });
+    </script>
+
+  
