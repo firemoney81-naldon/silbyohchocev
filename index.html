@@ -541,6 +541,299 @@
   
 
 
+<style>
+    /* Pretendard 폰트 불러오기 */
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard-dynamic-subset.css');
+
+    body { 
+        background-color: #f4f7f9; 
+        opacity: 0; 
+        transition: opacity 0.5s ease-in-out; 
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; 
+    }
+    
+    .bridge-container {
+        order: -1; 
+        margin: 60px auto; 
+        padding: 70px 40px;
+        text-align: center;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+        border: 1px solid #efefef;
+    }
+
+    .bridge-button {
+        display: inline-block;
+        padding: 18px 45px;
+        background-color: #007bff;
+        color: #ffffff;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 10px;
+        transition: all 0.2s ease-in-out;
+        font-size: 20px;
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2);
+    }
+
+    .bridge-button:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    .dynamic-counter-area {
+        margin-top: 40px;
+        padding-top: 25px;
+        border-top: 1px solid #f0f0f0; 
+    }
+
+    .dynamic-counter-area h2 {
+        font-size: 24px;
+        font-weight: 700;
+        color: #222;
+        line-height: 1.5;
+        letter-spacing: -0.5px;
+        text-align: center; 
+    }
+
+    .dynamic-content-wrap {
+        white-space: nowrap; 
+    }
+
+    .dynamic-counter-area .highlight {
+        font-size: 30px; 
+        font-weight: 900;
+        color: #007bff; 
+    }
+
+    .ad-disclaimer {
+        font-size: 10pt; 
+        color: #555555; 
+        line-height: 1.6;
+        word-break: keep-all;
+        margin-top: 60px;
+        padding-top: 25px;
+        border-top: 1px solid #f0f0f0; 
+    }
+
+    /* SEO를 위한 시각적 숨김 처리 (봇은 읽지만 사용자는 모르게 처리) */
+    .seo-hidden-text {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+
+    @media (max-width: 700px) {
+        .bridge-container {
+            max-width: 90%; 
+            padding: 40px 20px; 
+        }
+        .bridge-container h1 {
+            font-size: 28px;
+        }
+        .bridge-container p.main-text {
+            font-size: 18px;
+        }
+        .bridge-button {
+            padding: 15px 30px;
+            font-size: 18px;
+        }
+        .dynamic-counter-area h2 {
+            font-size: 20px; 
+        }
+        .dynamic-counter-area .highlight {
+            font-size: 24px; 
+        }
+    }
+</style>
+
+<!-- 시각적으로 페이지를 아래로 밀어내는 기존 더미 태그 -->
+<div style="padding: 20px; text-align: center; height: 1000px;">
+    <p></p>
+    <p></p>
+    <p style="height: 1000px;"></p>
+    <p></p>
+</div>
+
+<!-- 브릿지 컨테이너 -->
+<div class="bridge-container">
+    <h1>잠시만 확인해주세요!</h1>
+    <p class="main-text">
+        성공적인 상담 신청을 위해 <br>
+        <strong>최종 페이지</strong>로 이동을 준비하고 있습니다.
+    </p>
+
+    <a href="javascript:void(0);" class="bridge-button" id="cta-button"></a>
+
+    <div class="dynamic-counter-area">
+        <h2>
+            실시간 무료 비교 계산 <br>
+            <span class="dynamic-content-wrap">
+                <!--[SEO 업그레이드] span 대신 time 태그 사용 -->
+                <time id="dynamic-date"></time> 
+                <span id="application-text">기준 어제의 신청</span> 
+                <span class="highlight" id="random-count">0</span>명
+            </span>
+        </h2>
+    </div>
+
+    <!-- [SEO 업그레이드] 봇이 읽을 수 있는 문서 업데이트 텍스트 -->
+    <div class="seo-hidden-text">
+        본 페이지는 <time id="seo-update-time"></time> 기준으로 최신화 및 관리되고 있습니다.
+    </div>
+
+    <p class="ad-disclaimer"></p>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.body.style.opacity = '1';
+
+        const targetUrl = 'https://kbohum.kr/?num=35445436&insu_category=total'; // <-- 실제 이동할 URL 입력
+
+        const ctaButtonElement = document.getElementById('cta-button');
+        if (ctaButtonElement) {
+            ctaButtonElement.addEventListener('click', function(e) {
+                window.open(targetUrl, '_blank');
+            });
+        }
+
+        const today = new Date();
+        const currentYear = today.getFullYear(); 
+        const currentMonth = today.getMonth() + 1;
+        const currentDate = today.getDate();
+        
+        // SEO용 날짜 포맷 (ISO 8601)
+        const isoDateString = today.toISOString().split('T')[0]; // "YYYY-MM-DD" 포맷
+
+        // ----------------------------------------------------------------------
+        // 1. SEO 최적화 메타 태그 & 구조화된 데이터(JSON-LD) 봇 전송 로직
+        // ----------------------------------------------------------------------
+        function injectSEOData() {
+            // A. 구조화된 데이터 (WebPage)
+            const schemaData = {
+                "@context": "https://schema.org",
+                "@type": "WebPage",
+                "name": "실시간 무료 비교 계산",
+                "dateModified": today.toISOString(),
+                "description": "최신 기준으로 업데이트된 실시간 무료 비교 계산 솔루션입니다."
+            };
+            const scriptEl = document.createElement('script');
+            scriptEl.type = 'application/ld+json';
+            scriptEl.text = JSON.stringify(schemaData);
+            document.head.appendChild(scriptEl);
+
+            // B. 메타 태그 (수정일)
+            const metaTag = document.createElement('meta');
+            metaTag.setAttribute('property', 'article:modified_time');
+            metaTag.setAttribute('content', today.toISOString());
+            document.head.appendChild(metaTag);
+        }
+
+        // ----------------------------------------------------------------------
+        // 2. 하단 문구 및 CTA 문구 세팅
+        // ----------------------------------------------------------------------
+        function initializeTextElements() {
+            const disclaimers =[
+                "본 페이지는 소정의 제휴 수수료를 포함하고 있으며, 해당 콘텐츠는 광고주의 지원을 받아 제작되었습니다.",
+                "이 콘텐츠는 광고주와의 협력을 통해 제작되었으며, 파트너사로부터 소정의 수수료를 지원받을 수 있습니다.",
+                "본 페이지는 제휴 서비스를 포함하고 있습니다. 파트너사를 통해 제공되는 서비스 이용 시 일정액의 대가를 받을 수 있습니다."
+            ];
+            const disclaimerElement = document.querySelector('.ad-disclaimer');
+            if (disclaimerElement) {
+                disclaimerElement.textContent = disclaimers[Math.floor(Math.random() * disclaimers.length)];
+            }
+
+            const ctaPhrases =[
+                "무료 조회하러 가기",
+                "나에게 맞는 솔루션 무료로 조회하기",
+                "맞춤 견적 무료로 받으러 가기",
+                "나만의 맞춤 솔루션 무료로 받아보기",
+                "무료 컨설팅 받아보기"
+            ];
+            if (ctaButtonElement) {
+                ctaButtonElement.textContent = ctaPhrases[Math.floor(Math.random() * ctaPhrases.length)];
+            }
+        }
+
+        // ----------------------------------------------------------------------
+        // 3. 동적 날짜 텍스트 처리 (<time> 태그 활용)
+        // ----------------------------------------------------------------------
+        function updateDynamicText() {
+            const dynamicString = `${currentYear}년 ${currentMonth}월 ${currentDate}일`;
+            
+            const dynamicTextElement = document.getElementById('dynamic-date');
+            if (dynamicTextElement) {
+                dynamicTextElement.setAttribute('datetime', isoDateString);
+                dynamicTextElement.innerText = dynamicString;
+            }
+
+            // SEO 히든 텍스트 업데이트
+            const seoTimeElement = document.getElementById('seo-update-time');
+            if(seoTimeElement) {
+                seoTimeElement.setAttribute('datetime', isoDateString);
+                seoTimeElement.innerText = dynamicString;
+            }
+        }
+
+        // ----------------------------------------------------------------------
+        // 4. 숫자 애니메이션 (봇 신뢰도를 위해 일일 고정 난수 알고리즘 적용)
+        // ----------------------------------------------------------------------
+        function animateCount() {
+            const targetElement = document.getElementById('random-count');
+            const duration = 2000; 
+            const dayOfWeek = today.getDay(); 
+            
+            const ranges = [
+                [110, 180],[180, 230], [210, 280],[280, 330], 
+                [330, 380],[230, 280], [180, 230]
+            ];
+            const[min, max] = ranges[dayOfWeek];
+
+            // [핵심 변경] 날짜를 시드(Seed)로 사용하여 오늘 하루는 어떤 사용자가 접속해도 동일한 숫자가 나옴
+            // 봇이 여러 번 크롤링해도 데이터가 하루 단위로 변경되는 진짜 통계로 인식함
+            const dateSeed = currentYear * 10000 + currentMonth * 100 + currentDate;
+            let pseudoRandom = Math.sin(dateSeed) * 10000;
+            pseudoRandom = pseudoRandom - Math.floor(pseudoRandom);
+            
+            const targetNumber = Math.floor(pseudoRandom * (max - min + 1)) + min;
+
+            const startTime = performance.now();
+
+            function updateNumber(currentTime) {
+                const elapsedTime = currentTime - startTime;
+                const progress = Math.min(elapsedTime / duration, 1);
+                // easeOutQuad 애니메이션 효과 적용
+                const easeOutProgress = progress * (2 - progress); 
+                
+                const currentNumber = Math.floor(easeOutProgress * targetNumber);
+                targetElement.innerText = currentNumber.toLocaleString();
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateNumber);
+                }
+            }
+            requestAnimationFrame(updateNumber);
+        }
+
+        // 함수 실행
+        injectSEOData();
+        initializeTextElements();
+        updateDynamicText();
+        animateCount();
+    });
+</script>
+
+
+
+	
 <footer style="font-size: 11px; color: #888; padding: 30px 20px; text-align: center; line-height: 1.8; font-family: sans-serif;">
   <div style="margin-bottom: 8px;">
     <!-- 봇이 JS를 실행 못해도 기본값은 읽어갈 수 있게 연도를 미리 적어둡니다 -->
